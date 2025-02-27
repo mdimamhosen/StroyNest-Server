@@ -3,7 +3,7 @@ import app from './app';
 import config from './app/config';
 import mongoose from 'mongoose';
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 let isConnected = false;
 
