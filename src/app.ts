@@ -8,11 +8,12 @@ import { routes } from './app/routes';
 const app: Application = express();
 app.use(
   cors({
-    origin: 'https://srorynest-omega.vercel.app',
+    origin: ['https://srorynest-omega.vercel.app'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    // allowedHeaders: 'Content-Type, Authorization',
     credentials: true,
   }),
 );
-
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true }));
 
