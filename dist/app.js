@@ -11,7 +11,7 @@ const notFound_1 = __importDefault(require("./app/middlewares/notFound"));
 const routes_1 = require("./app/routes");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:5173',
+    origin: 'https://srorynest-omega.vercel.app',
     credentials: true,
 }));
 app.use(express_1.default.json({ limit: '50mb' }));
