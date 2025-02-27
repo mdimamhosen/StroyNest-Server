@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
 const config_1 = __importDefault(require("./app/config"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 let isConnected = false;
 let server;
 function main() {
