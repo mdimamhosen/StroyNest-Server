@@ -21,6 +21,7 @@ const updateProductValidation = zod_1.z.object({
         price: zod_1.z.number().optional(),
         stock: zod_1.z.number().optional(),
         description: zod_1.z.string().optional(),
+        image: zod_1.z.string().optional(),
     }),
 });
 exports.ProductValidation = {
