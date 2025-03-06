@@ -13,13 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductService = void 0;
-const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const AppError_1 = require("../../utils/AppError");
-const sendImageToCloudinary_1 = require("../../utils/sendImageToCloudinary");
 const product_model_1 = require("./product.model");
 const product_utils_1 = require("./product.utils");
 const http_status_1 = __importDefault(require("http-status"));
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Payload ->', payload);
     const productData = {};
@@ -54,19 +51,14 @@ const deleteProduct = (id) => __awaiter(void 0, void 0, void 0, function* () {
     });
     return result;
 });
-const updateBook = (id, payload, 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-file) => __awaiter(void 0, void 0, void 0, function* () {
-    const isBookExist = yield product_model_1.Product.findOne({ id });
+const updateBook = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Payload ->', payload);
+    console.log('id ->', id);
+    const isBookExist = yield product_model_1.Product.findById(id);
     if (!isBookExist) {
         throw new AppError_1.AppError('Book not found', http_status_1.default.NOT_FOUND);
     }
-    const imageName = `${id}-${payload.title}`;
-    if (file) {
-        const { secure_url } = yield (0, sendImageToCloudinary_1.uploadImageToCloudinary)(file.path, imageName, 'product');
-        payload.image = secure_url;
-    }
-    const updatedBook = yield product_model_1.Product.findOneAndUpdate({ id }, payload, {
+    const updatedBook = yield product_model_1.Product.findByIdAndUpdate(id, payload, {
         new: true,
     }).populate('author');
     if (!updatedBook) {
@@ -75,15 +67,8 @@ file) => __awaiter(void 0, void 0, void 0, function* () {
     return updatedBook;
 });
 const getAllProducts = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    const allBooks = new QueryBuilder_1.default(product_model_1.Product.find().populate('author'), query)
-        .searchTerm(['title', 'description', 'category'])
-        .filter()
-        .sort()
-        .fields()
-        .pagination();
-    const data = yield allBooks.modelQuery;
-    const meta = yield allBooks.countTotal();
-    return { data, meta };
+    const allBooks = yield product_model_1.Product.find(query).populate('author');
+    return allBooks;
 });
 const getAllProductsForUser = (query) => __awaiter(void 0, void 0, void 0, function* () {
     // Process query parameters

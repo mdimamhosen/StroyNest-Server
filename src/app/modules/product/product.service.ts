@@ -1,12 +1,9 @@
-import QueryBuilder from '../../builder/QueryBuilder';
 import { AppError } from '../../utils/AppError';
-import { uploadImageToCloudinary } from '../../utils/sendImageToCloudinary';
 import { IProduct } from './product.interface';
 import { Product } from './product.model';
 import { genarateProductId } from './product.utils';
 import httpStatus from 'http-status';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createProduct = async (payload: IProduct) => {
   console.log('Payload ->', payload);
   const productData: Partial<IProduct> = {};
@@ -54,30 +51,16 @@ const deleteProduct = async (id: string) => {
   return result;
 };
 
-const updateBook = async (
-  id: string,
-  payload: Partial<IProduct>,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  file?: any,
-) => {
-  const isBookExist = await Product.findOne({ id });
+const updateBook = async (id: string, payload: Partial<IProduct>) => {
+  console.log('Payload ->', payload);
+  console.log('id ->', id);
+  const isBookExist = await Product.findById(id);
 
   if (!isBookExist) {
     throw new AppError('Book not found', httpStatus.NOT_FOUND);
   }
 
-  const imageName = `${id}-${payload.title}`;
-
-  if (file) {
-    const { secure_url } = await uploadImageToCloudinary(
-      file.path,
-      imageName,
-      'product',
-    );
-    payload.image = secure_url;
-  }
-
-  const updatedBook = await Product.findOneAndUpdate({ id }, payload, {
+  const updatedBook = await Product.findByIdAndUpdate(id, payload, {
     new: true,
   }).populate('author');
 
@@ -92,17 +75,8 @@ const updateBook = async (
 };
 
 const getAllProducts = async (query: Record<string, unknown>) => {
-  const allBooks = new QueryBuilder(Product.find().populate('author'), query)
-    .searchTerm(['title', 'description', 'category'])
-    .filter()
-    .sort()
-    .fields()
-    .pagination();
-
-  const data = await allBooks.modelQuery;
-  const meta = await allBooks.countTotal();
-
-  return { data, meta };
+  const allBooks = await Product.find(query).populate('author');
+  return allBooks;
 };
 
 const getAllProductsForUser = async (query: Record<string, unknown>) => {

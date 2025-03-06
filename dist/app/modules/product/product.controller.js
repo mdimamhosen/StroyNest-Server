@@ -47,11 +47,7 @@ const deleteProduct = (0, catchAsyncResponse_1.default)((req, res) => __awaiter(
     (0, sendResponse_1.default)(res, data);
 }));
 const updateProduct = (0, catchAsyncResponse_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let file = null;
-    if (req.file) {
-        file = req.file;
-    }
-    const result = yield product_service_1.ProductService.updateBook(req.params.id, req.body, file);
+    const result = yield product_service_1.ProductService.updateBook(req.params.id, req.body);
     const data = {
         success: true,
         statusCode: 200,
@@ -66,10 +62,7 @@ const getAllProducts = (0, catchAsyncResponse_1.default)((req, res) => __awaiter
         success: true,
         statusCode: 200,
         message: 'Products fetched successfully',
-        data: {
-            data: result.data,
-            meta: result.meta,
-        },
+        data: result,
     };
     (0, sendResponse_1.default)(res, data);
 }));

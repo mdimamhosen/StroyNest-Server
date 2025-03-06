@@ -37,11 +37,7 @@ const deleteProduct = catchAsyncResponse(async (req, res) => {
 });
 
 const updateProduct = catchAsyncResponse(async (req, res) => {
-  let file = null;
-  if (req.file) {
-    file = req.file;
-  }
-  const result = await ProductService.updateBook(req.params.id, req.body, file);
+  const result = await ProductService.updateBook(req.params.id, req.body);
   const data = {
     success: true,
     statusCode: 200,
@@ -57,10 +53,7 @@ const getAllProducts = catchAsyncResponse(async (req, res) => {
     success: true,
     statusCode: 200,
     message: 'Products fetched successfully',
-    data: {
-      data: result.data,
-      meta: result.meta,
-    },
+    data: result,
   };
   sendResponse(res, data);
 });
