@@ -20,6 +20,7 @@ const updateProductValidation = z.object({
     price: z.number().optional(),
     stock: z.number().optional(),
     description: z.string().optional(),
+    image: z.string().optional(),
   }),
 });
 
