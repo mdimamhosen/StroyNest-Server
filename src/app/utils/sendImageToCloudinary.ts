@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v2 as cloudinary } from 'cloudinary';
-// import config from '../config';
+import config from '../config';
 import multer from 'multer';
 import fs from 'fs';
 
@@ -8,16 +8,16 @@ interface CloudinaryResponse {
   secure_url: string;
 }
 
-// cloudinary.config({
-//   cloud_name: config.cloudName,
-//   api_key: config.apiKey,
-//   api_secret: config.apiSecret,
-// });
 cloudinary.config({
-  cloud_name: 'drxkgsnhy',
-  api_key: '414838558865527',
-  api_secret: 'hcOnL_teRWjwt-C2RMF3UdqPi8U',
+  cloud_name: config.cloudName,
+  api_key: config.apiKey,
+  api_secret: config.apiSecret,
 });
+// cloudinary.config({
+//   cloud_name: 'drxkgsnhy',
+//   api_key: '414838558865527',
+//   api_secret: 'hcOnL_teRWjwt-C2RMF3UdqPi8U',
+// });
 
 export const uploadImageToCloudinary = (
   path: string,

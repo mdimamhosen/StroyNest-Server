@@ -6,19 +6,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.upload = exports.uploadImageToCloudinary = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const cloudinary_1 = require("cloudinary");
-// import config from '../config';
+const config_1 = __importDefault(require("../config"));
 const multer_1 = __importDefault(require("multer"));
 const fs_1 = __importDefault(require("fs"));
-// cloudinary.config({
-//   cloud_name: config.cloudName,
-//   api_key: config.apiKey,
-//   api_secret: config.apiSecret,
-// });
 cloudinary_1.v2.config({
-    cloud_name: 'drxkgsnhy',
-    api_key: '414838558865527',
-    api_secret: 'hcOnL_teRWjwt-C2RMF3UdqPi8U',
+    cloud_name: config_1.default.cloudName,
+    api_key: config_1.default.apiKey,
+    api_secret: config_1.default.apiSecret,
 });
+// cloudinary.config({
+//   cloud_name: 'drxkgsnhy',
+//   api_key: '414838558865527',
+//   api_secret: 'hcOnL_teRWjwt-C2RMF3UdqPi8U',
+// });
 const uploadImageToCloudinary = (path, public_id, folderName) => {
     return new Promise((resolve, reject) => {
         cloudinary_1.v2.uploader.upload(path, { folder: folderName, public_id }, function (error, result) {
