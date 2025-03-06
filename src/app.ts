@@ -8,8 +8,8 @@ import { routes } from './app/routes';
 const app: Application = express();
 app.use(
   cors({
-    origin: ['https://srorynest-omega.vercel.app'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: ['https://srorynest-omega.vercel.app', 'http://localhost:5173'],
+    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     // allowedHeaders: 'Content-Type, Authorization',
     credentials: true,
   }),
