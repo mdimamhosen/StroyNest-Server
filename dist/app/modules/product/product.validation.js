@@ -9,6 +9,7 @@ const createProductValidation = zod_1.z.object({
         category: zod_1.z.string().nonempty('Category is required'),
         price: zod_1.z.number().positive('Price must be a positive number'),
         stock: zod_1.z.number().int().positive('Stock must be a positive integer'),
+        image: zod_1.z.string().nonempty('Image is required'),
         description: zod_1.z.string().optional(),
     }),
 });

@@ -20,7 +20,8 @@ const product_model_1 = require("./product.model");
 const product_utils_1 = require("./product.utils");
 const http_status_1 = __importDefault(require("http-status"));
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const createProduct = (payload, file) => __awaiter(void 0, void 0, void 0, function* () {
+const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('Payload ->', payload);
     const productData = {};
     productData.title = payload.title;
     productData.author = payload.author;
@@ -30,11 +31,6 @@ const createProduct = (payload, file) => __awaiter(void 0, void 0, void 0, funct
     productData.image = payload.image;
     productData.description = (payload === null || payload === void 0 ? void 0 : payload.description) || '';
     productData.id = yield (0, product_utils_1.genarateProductId)();
-    const imageName = `${productData.id}-${productData.title}`;
-    if (file) {
-        const { secure_url } = yield (0, sendImageToCloudinary_1.uploadImageToCloudinary)(file.path, imageName, 'product');
-        productData.image = secure_url;
-    }
     const product = yield product_model_1.Product.create(productData);
     if (!product) {
         throw new AppError_1.AppError('Product not created', 500);

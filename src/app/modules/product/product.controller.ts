@@ -3,10 +3,7 @@ import sendResponse from '../../utils/sendResponse';
 import { ProductService } from './product.service';
 
 const createProduct = catchAsyncResponse(async (req, res) => {
-  const { file } = req;
-
-  console.log('file', file);
-  const result = await ProductService.createProduct(req.body, file);
+  const result = await ProductService.createProduct(req.body);
 
   const data = {
     success: true,

@@ -7,7 +7,8 @@ import { genarateProductId } from './product.utils';
 import httpStatus from 'http-status';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const createProduct = async (payload: IProduct, file: any) => {
+const createProduct = async (payload: IProduct) => {
+  console.log('Payload ->', payload);
   const productData: Partial<IProduct> = {};
   productData.title = payload.title;
   productData.author = payload.author;
@@ -18,17 +19,6 @@ const createProduct = async (payload: IProduct, file: any) => {
   productData.description = payload?.description || '';
 
   productData.id = await genarateProductId();
-
-  const imageName = `${productData.id}-${productData.title}`;
-
-  if (file) {
-    const { secure_url } = await uploadImageToCloudinary(
-      file.path,
-      imageName,
-      'product',
-    );
-    productData.image = secure_url;
-  }
 
   const product = await Product.create(productData);
 

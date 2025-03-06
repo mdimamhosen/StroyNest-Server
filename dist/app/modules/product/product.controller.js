@@ -17,9 +17,7 @@ const catchAsyncResponse_1 = __importDefault(require("../../utils/catchAsyncResp
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const product_service_1 = require("./product.service");
 const createProduct = (0, catchAsyncResponse_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { file } = req;
-    console.log('file', file);
-    const result = yield product_service_1.ProductService.createProduct(req.body, file);
+    const result = yield product_service_1.ProductService.createProduct(req.body);
     const data = {
         success: true,
         statusCode: 201,
